@@ -4,7 +4,7 @@ import { auth, db } from '@/lib/firebase';
 import { appEmailFromUsername } from '@/lib/helpers';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
 import { AppSettings } from '@/lib/types';
 
@@ -17,8 +17,7 @@ export default function LoginPage() {
   const [setup, setSetup] = useState({ firstName: '', lastName: '', username: '', password: '' });
   const [setupMsg, setSetupMsg] = useState('');
   const router = useRouter();
-  const params = useSearchParams();
-
+ 
   useEffect(() => onSnapshot(doc(db, 'settings', 'system'), (snap) => {
     if (snap.exists()) setSettings(snap.data() as AppSettings);
   }), []);
@@ -29,7 +28,7 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, appEmailFromUsername(username), password);
-      router.replace(params.get('next') || '/anasayfa');
+     router.replace('/anasayfa');
     } catch {
       setError('Kullanıcı adı veya şifre hatalı.');
     } finally {
