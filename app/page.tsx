@@ -348,8 +348,7 @@ export default function Page() {
   <button
     className="primary-btn"
     onClick={async () => {
-      import { db as firestoreDb } from "../lib/firebase";
-      await addDoc(collection(firestoreDb, "firms"), {
+         await addDoc(collection(firestoreDb, "firms"), {
         name: "Test Firma",
         createdAt: new Date().toISOString(),
       });
