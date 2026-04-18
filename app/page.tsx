@@ -1,5 +1,5 @@
 'use client';
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db as firestoreDb } from "../lib/firebase";
 import { useEffect, useMemo, useState } from 'react';
 
@@ -142,31 +142,43 @@ export default function Page() {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      setDb(JSON.parse(raw));
-    } else {
-      const starter: DB = {
-        companies: [
-          {
-            id: uid(),
-            name: 'Örnek Filo A.Ş.',
-            authorizedPerson: 'Ahmet Kaya',
-            phone: '0532 000 00 00',
-            address: 'İzmir Sanayi Sitesi 1. Blok',
-            note: 'Demo kayıt',
-            status: 'Aktif',
-            createdAt: new Date().toISOString(),
-          },
-        ],
-        serviceRecords: [],
-        payments: [],
-        expenses: [],
-      };
-      setDb(starter);
+  async function loadData() {
+    try {
+      const firmsSnapshot = await getDocs(collection(firestoreDb, "firms"));
+      const firms = firmsSnapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          name: String(data.name || ""),
+          authorizedPerson: String(data.authorizedPerson || ""),
+          phone: String(data.phone || ""),
+          address: String(data.address || ""),
+          note: String(data.note || ""),
+          status: (data.status === "Pasif" ? "Pasif" : "Aktif") as CompanyStatus,
+          createdAt: String(data.createdAt || new Date().toISOString()),
+        };
+      });
+
+      if (firms.length > 0) {
+        setDb({
+          companies: firms,
+          serviceRecords: [],
+          payments: [],
+          expenses: [],
+        });
+      } else {
+        setDb(emptyDB);
+      }
+    } catch (error) {
+      console.error("Firebase veri çekme hatası:", error);
+      setDb(emptyDB);
+    } finally {
+      setReady(true);
     }
-    setReady(true);
-  }, []);
+  }
+
+  loadData();
+}, []);
 
   useEffect(() => {
     if (ready) {
