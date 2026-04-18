@@ -1,6 +1,6 @@
 'use client';
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { db as firestoreDb } from "@/lib/firebase";
 import { useEffect, useMemo, useState } from 'react';
 
 type CompanyStatus = 'Aktif' | 'Pasif';
