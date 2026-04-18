@@ -228,19 +228,33 @@ export default function Page() {
     [company.name, company.authorizedPerson, company.phone].join(' ').toLowerCase().includes(search.toLowerCase())
   );
 
-  function addCompany(e: React.FormEvent) {
-    e.preventDefault();
-    if (!companyForm.name.trim()) return;
-    const newCompany: Company = {
-      id: uid(),
-      ...companyForm,
-      createdAt: new Date().toISOString(),
-    };
-    setDb((prev) => ({ ...prev, companies: [newCompany, ...prev.companies] }));
-    setSelectedCompanyId(newCompany.id);
-    setCompanyForm(companyInitial);
-    setActiveTab('companies');
-  }
+async function addCompany(e: React.FormEvent) {
+  e.preventDefault();
+  if (!companyForm.name.trim()) return;
+
+  const newCompany: Company = {
+    id: uid(),
+    ...companyForm,
+    createdAt: new Date().toISOString(),
+  };
+
+  setDb((prev) => ({ ...prev, companies: [newCompany, ...prev.companies] }));
+  setSelectedCompanyId(newCompany.id);
+  setCompanyForm(companyInitial);
+  setActiveTab('companies');
+
+  await addDoc(collection(firestoreDb, "firms"), {
+    name: newCompany.name,
+    authorizedPerson: newCompany.authorizedPerson,
+    phone: newCompany.phone,
+    address: newCompany.address,
+    note: newCompany.note,
+    status: newCompany.status,
+    createdAt: newCompany.createdAt,
+  });
+
+  alert("Firma Firebase'e kaydedildi");
+}
 
   function addService(e: React.FormEvent) {
     e.preventDefault();
