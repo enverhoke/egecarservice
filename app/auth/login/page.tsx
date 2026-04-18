@@ -67,16 +67,6 @@ export default function LoginPage() {
           <button className="primary-btn" disabled={loading} type="submit">{loading ? 'Giriş yapılıyor...' : 'Giriş Yap'}</button>
         </form>
 
-        <form className="auth-card" onSubmit={bootstrap}>
-          <h2 className="title" style={{ fontSize: 24 }}>İlk Kurulum</h2>
-          <p className="subtitle">Sistem ilk kez kurulurken ilk admin kullanıcıyı buradan oluştur.</p>
-          <label className="field-full"><span>Ad</span><input value={setup.firstName} onChange={e => setSetup({ ...setup, firstName: e.target.value })} /></label>
-          <label className="field-full"><span>Soyad</span><input value={setup.lastName} onChange={e => setSetup({ ...setup, lastName: e.target.value })} /></label>
-          <label className="field-full"><span>Kullanıcı Adı</span><input value={setup.username} onChange={e => setSetup({ ...setup, username: e.target.value.toLowerCase() })} /></label>
-          <label className="field-full"><span>Şifre</span><input type="password" value={setup.password} onChange={e => setSetup({ ...setup, password: e.target.value })} /></label>
-          {setupMsg ? <div className="alert">{setupMsg}</div> : null}
-          <button className="secondary-btn" type="submit">İlk Admini Oluştur</button>
-        </form>
       </div>
     </main>
   );
