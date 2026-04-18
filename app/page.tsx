@@ -344,21 +344,7 @@ export default function Page() {
           </div>
           <div className="badge">Ücretsiz MVP Panel</div>
         </header>
-        <div style={{ marginBottom: 16 }}>
-  <button
-    className="primary-btn"
-    onClick={async () => {
-         await addDoc(collection(firestoreDb, "firms"), {
-        name: "Test Firma",
-        createdAt: new Date().toISOString(),
-      });
-      alert("Kaydedildi");
-    }}
-  >
-    Test Firma Ekle
-  </button>
-</div>
-
+        
         {activeTab === 'dashboard' && (
           <>
             <section className="stats-grid">
