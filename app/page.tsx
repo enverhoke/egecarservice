@@ -344,6 +344,20 @@ export default function Page() {
           </div>
           <div className="badge">Ücretsiz MVP Panel</div>
         </header>
+        <div style={{ marginBottom: 16 }}>
+  <button
+    className="primary-btn"
+    onClick={async () => {
+      await addDoc(collection(db, "firms"), {
+        name: "Test Firma",
+        createdAt: new Date().toISOString(),
+      });
+      alert("Kaydedildi");
+    }}
+  >
+    Test Firma Ekle
+  </button>
+</div>
 
         {activeTab === 'dashboard' && (
           <>
@@ -753,14 +767,3 @@ function sumByMonth(records: ServiceRecord[], prefix: string) {
 function sumExpenseByMonth(records: Expense[], prefix: string) {
   return records.filter((item) => item.date.startsWith(prefix)).reduce((sum, item) => sum + item.amount, 0);
 }
-<button
-  onClick={async () => {
-    await addDoc(collection(db, "firms"), {
-      name: "Test Firma",
-      createdAt: new Date(),
-    });
-    alert("Kaydedildi");
-  }}
->
-  Test Firma Ekle
-</button>
