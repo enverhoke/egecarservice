@@ -15,24 +15,63 @@ import {
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 const brandModelMap: Record<string, string[]> = {
-  FIAT: ['Egea', 'Linea', 'Doblo', 'Albea', 'Tempra', 'Marea', 'Punto', 'Palio'],
-  RENAULT: ['Clio', 'Megane', 'Symbol', 'Fluence', 'Taliant', 'Kangoo'],
-  FORD: ['Focus', 'Fiesta', 'Transit', 'Courier', 'Mondeo'],
-  VOLKSWAGEN: ['Golf', 'Passat', 'Polo', 'Caddy', 'Transporter'],
-  OPEL: ['Astra', 'Corsa', 'Insignia', 'Combo', 'Vectra'],
-  TOYOTA: ['Corolla', 'Yaris', 'Hilux', 'Auris', 'Avensis'],
-  HONDA: ['Civic', 'Accord', 'City', 'CR-V'],
-  HYUNDAI: ['i20', 'i30', 'Accent', 'Elantra', 'Tucson'],
-  PEUGEOT: ['206', '207', '208', '301', '308', 'Partner'],
-  CITROEN: ['C-Elysee', 'C3', 'C4', 'Berlingo'],
-  BMW: ['1 Serisi', '3 Serisi', '5 Serisi', 'X1', 'X3', 'X5'],
-  MERCEDES: ['A Serisi', 'C Serisi', 'E Serisi', 'CLA', 'Vito', 'Sprinter'],
-  AUDI: ['A3', 'A4', 'A6', 'Q3', 'Q5'],
-  SKODA: ['Fabia', 'Octavia', 'Superb', 'Rapid'],
-  DACIA: ['Sandero', 'Logan', 'Duster'],
-  NISSAN: ['Micra', 'Qashqai', 'Juke', 'Navara'],
-  KIA: ['Rio', 'Ceed', 'Sportage', 'Cerato'],
-  VOLVO: ['S40', 'S60', 'XC60', 'XC90'],
+  FIAT: ['Egea', 'Linea', 'Doblo', 'Albea', 'Tempra', 'Marea', 'Punto', 'Palio', 'Bravo', 'Brava', 'Tipo'],
+  
+  RENAULT: ['Clio', 'Megane', 'Symbol', 'Fluence', 'Taliant', 'Kangoo', 'Laguna', 'Captur', 'Kadjar', 'Koleos', 'Zoe'],
+  
+  FORD: ['Focus', 'Fiesta', 'Transit', 'Courier', 'Mondeo', 'Kuga', 'EcoSport', 'Puma', 'Mustang'],
+  
+  VOLKSWAGEN: ['Golf', 'Passat', 'Polo', 'Caddy', 'Transporter', 'Tiguan', 'Touareg', 'Jetta', 'Arteon'],
+  
+  OPEL: ['Astra', 'Corsa', 'Insignia', 'Combo', 'Vectra', 'Mokka', 'Crossland', 'Grandland'],
+  
+  TOYOTA: ['Corolla', 'Yaris', 'Hilux', 'Auris', 'Avensis', 'RAV4', 'C-HR', 'Camry', 'Land Cruiser'],
+  
+  HONDA: ['Civic', 'Accord', 'City', 'CR-V', 'HR-V', 'Jazz'],
+  
+  HYUNDAI: ['i10', 'i20', 'i30', 'Accent', 'Elantra', 'Tucson', 'Santa Fe', 'Kona'],
+  
+  PEUGEOT: ['206', '207', '208', '301', '308', '3008', '5008', 'Partner', 'Rifter'],
+  
+  CITROEN: ['C-Elysee', 'C3', 'C4', 'Berlingo', 'C5 Aircross'],
+  
+  BMW: ['1 Serisi', '3 Serisi', '5 Serisi', '7 Serisi', 'X1', 'X3', 'X5', 'X6', 'i3', 'i4'],
+  
+  MERCEDES: ['A Serisi', 'C Serisi', 'E Serisi', 'S Serisi', 'CLA', 'GLA', 'GLC', 'GLE', 'Vito', 'Sprinter'],
+  
+  AUDI: ['A3', 'A4', 'A5', 'A6', 'Q2', 'Q3', 'Q5', 'Q7', 'Q8'],
+  
+  SKODA: ['Fabia', 'Octavia', 'Superb', 'Rapid', 'Kodiaq', 'Kamiq', 'Scala'],
+  
+  DACIA: ['Sandero', 'Logan', 'Duster', 'Jogger'],
+  
+  NISSAN: ['Micra', 'Qashqai', 'Juke', 'Navara', 'X-Trail'],
+  
+  KIA: ['Rio', 'Ceed', 'Sportage', 'Cerato', 'Sorento', 'Stonic'],
+  
+  VOLVO: ['S40', 'S60', 'S90', 'XC40', 'XC60', 'XC90', 'V40'],
+  
+  TESLA: ['Model S', 'Model 3', 'Model X', 'Model Y'],
+  
+  MAZDA: ['Mazda 2', 'Mazda 3', 'Mazda 6', 'CX-3', 'CX-5', 'CX-9'],
+  
+  MITSUBISHI: ['Lancer', 'ASX', 'Outlander', 'Pajero'],
+  
+  SUZUKI: ['Swift', 'Vitara', 'SX4', 'Baleno', 'Jimny'],
+  
+  SEAT: ['Ibiza', 'Leon', 'Ateca', 'Arona', 'Toledo'],
+  
+  MINI: ['Cooper', 'Countryman', 'Clubman'],
+  
+  JEEP: ['Renegade', 'Compass', 'Cherokee', 'Wrangler'],
+  
+  LAND_ROVER: ['Discovery', 'Range Rover', 'Defender', 'Evoque'],
+  
+  PORSCHE: ['911', 'Cayenne', 'Macan', 'Panamera', 'Taycan'],
+  
+  FERRARI: ['488', 'F8', 'Roma', 'Portofino'],
+  
+  LAMBORGHINI: ['Huracan', 'Aventador', 'Urus']
 };
 const fuelOptions = ['Benzin', 'Dizel', 'LPG', 'Hybrid', 'Elektrik'];
 const brandOptions = Object.keys(brandModelMap);
