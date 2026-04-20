@@ -13,6 +13,7 @@ import {
   query,
 } from 'firebase/firestore';
 import { FormEvent, useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
 const brandModelMap: Record<string, string[]> = {
   FIAT: ['Egea', 'Linea', 'Doblo', 'Albea', 'Tempra', 'Marea', 'Punto', 'Palio'],
   RENAULT: ['Clio', 'Megane', 'Symbol', 'Fluence', 'Taliant', 'Kangoo'],
@@ -280,15 +281,16 @@ const modelOptions = form.brand ? brandModelMap[form.brand] || [] : [];
           <div className="table-wrap">
             <table>
               <thead>
-                <tr>
-                  <th>Plaka</th>
-                  <th>Marka</th>
-                  <th>Model</th>
-                  <th>Yıl</th>
-                  <th>Yakıt</th>
-                  <th>Müşteri</th>
-                </tr>
-              </thead>
+  <tr>
+    <th>Plaka</th>
+    <th>Marka</th>
+    <th>Model</th>
+    <th>Yıl</th>
+    <th>Yakıt</th>
+    <th>Müşteri</th>
+    <th>İşlem</th>
+  </tr>
+</thead>
               <tbody>
                 {filtered.map((item) => (
                   <tr key={item.id}>
