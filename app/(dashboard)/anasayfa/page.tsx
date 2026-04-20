@@ -1,5 +1,11 @@
 'use client';
-
+export default function AnasayfaPage() {
+  return (
+    <RequireAuth allow={['admin']}>
+      <AnasayfaInner />
+    </RequireAuth>
+  );
+}
 import { AppShell } from '@/components/AppShell';
 import { db } from '@/lib/firebase';
 import { money } from '@/lib/helpers';
