@@ -27,22 +27,37 @@ export type Firm = {
 
 export type ServiceRecord = {
   id: string;
-  firmId: string;
-  date: string;
+
+  // 👤 müşteri
+  customerName?: string;
+  phone?: string;
+
+  // 🚗 araç
   plate?: string;
   brand?: string;
   model?: string;
   year?: string;
-  processSummary: string;
+  fuelType?: string;
+
+  // 🔧 servis
+  faultType?: string;
+  processSummary?: string;
+  description?: string;
   details?: string;
-  partPurchased?: string;
+  status?: string;
+
+  // 💰 ücret
   partCost?: number;
   laborCost?: number;
   totalCost?: number;
   onCredit?: number;
+
+  // ✔️ durum
   tested?: boolean;
   delivered?: boolean;
-  status?: string;
+
+  // 📅 meta
+  date: string;
   createdAt: string;
   createdByUid: string;
   createdByName: string;
