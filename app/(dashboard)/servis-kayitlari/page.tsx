@@ -37,7 +37,53 @@ export default function ServisKayitlariPage() {
     });
     setForm(initial);
   }
+function printItem(item: ServiceRecord) {
+  const firmName = firms.find((f) => f.id === item.firmId)?.name || '-';
 
+  const w = window.open('', '_blank');
+  if (!w) return;
+
+  w.document.write(`
+    <html>
+      <head>
+        <title>Servis Formu</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 24px; }
+          h2 { margin-bottom: 16px; }
+          .row { margin-bottom: 8px; }
+          .label { font-weight: bold; }
+          .box { border: 1px solid #ccc; padding: 16px; border-radius: 8px; }
+        </style>
+      </head>
+      <body>
+        <h2>Servis Formu</h2>
+        <div class="box">
+          <div class="row"><span class="label">Tarih:</span> ${item.date || '-'}</div>
+          <div class="row"><span class="label">Firma:</span> ${firmName}</div>
+          <div class="row"><span class="label">Plaka:</span> ${item.plate || '-'}</div>
+          <div class="row"><span class="label">Marka:</span> ${item.brand || '-'}</div>
+          <div class="row"><span class="label">Model:</span> ${item.model || '-'}</div>
+          <div class="row"><span class="label">Yıl:</span> ${item.year || '-'}</div>
+          <div class="row"><span class="label">Yapılan İş:</span> ${item.processSummary || '-'}</div>
+          <div class="row"><span class="label">Detay:</span> ${item.details || '-'}</div>
+          <div class="row"><span class="label">Parça:</span> ${item.partPurchased || '-'}</div>
+          <div class="row"><span class="label">Durum:</span> ${item.status || '-'}</div>
+          <div class="row"><span class="label">Parça Tutarı:</span> ${item.partCost || 0} TL</div>
+          <div class="row"><span class="label">İşçilik:</span> ${item.laborCost || 0} TL</div>
+          <div class="row"><span class="label">Toplam:</span> ${item.totalCost || 0} TL</div>
+          <div class="row"><span class="label">Veresiye:</span> ${item.onCredit || 0} TL</div>
+          <div class="row"><span class="label">Test:</span> ${item.tested ? 'Evet' : 'Hayır'}</div>
+          <div class="row"><span class="label">Teslim:</span> ${item.delivered ? 'Evet' : 'Hayır'}</div>
+          <div class="row"><span class="label">Kaydı Giren:</span> ${item.createdByName || '-'}</div>
+        </div>
+      </body>
+    </html>
+  `);
+
+  w.document.close();
+  w.focus();
+  w.print();
+}
   return (
     <AppShell title="Servis Kayıtları" subtitle="Personel araç, işlem, test ve parça kayıtlarını buradan girer.">
       <section className="panel-grid">
