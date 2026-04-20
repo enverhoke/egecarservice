@@ -33,8 +33,6 @@ export type ServiceRecord = {
   id: string;
   customerId: string;
   vehicleId: string;
-updatedAt?: string;
-updatedBy?: string;
   date: string;
   faultType:
     | 'Motor'
