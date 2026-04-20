@@ -5,7 +5,7 @@ import { useAuth } from '@/components/AuthProvider';
 import { db } from '@/lib/firebase';
 import { money, nowIso } from '@/lib/helpers';
 import { Customer, ServiceItem, ServiceRecord, Vehicle } from '@/lib/types';
-import { addDoc, collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { addDoc, collection, doc, onSnapshot, orderBy, query, updateDoc } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { FormEvent } from 'react';
@@ -47,6 +47,7 @@ export default function AracDetayPage() {
   const [tested, setTested] = useState(false);
   const [delivered, setDelivered] = useState(false);
   const [items, setItems] = useState<ServiceItem[]>([{ ...initialItem }]);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   useEffect(() => {
     return onSnapshot(collection(db, 'vehicles'), (snapshot) => {
@@ -547,7 +548,7 @@ w.document.write(`
               <th>Açıklama</th>
               <th>Tutar</th>
                   <th>İşlem</th>
-
+<th>Düzenle</th>
             </tr>
           </thead>
          <tbody>
