@@ -538,16 +538,25 @@ export default function AracDetayPage() {
 
             </tr>
           </thead>
-          <tbody>
-            {services.map((s) => (
-              <tr key={s.id}>
-                <td>{s.date}</td>
-                <td>{s.faultType}</td>
-                <td>{s.description || '-'}</td>
-                <td>{money(s.totalCost || 0)}</td>
-              </tr>
-            ))}
-          </tbody>
+         <tbody>
+  {services.map((s) => (
+    <tr key={s.id}>
+      <td>{s.date}</td>
+      <td>{s.faultType}</td>
+      <td>{s.description || '-'}</td>
+      <td>{money(s.totalCost || 0)}</td>
+      <td>
+        <button
+          type="button"
+          className="secondary-btn"
+          onClick={() => printService(s)}
+        >
+          Yazdır
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
         </table>
       </section>
     </AppShell>
