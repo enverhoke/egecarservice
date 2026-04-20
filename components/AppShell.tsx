@@ -10,11 +10,11 @@ import { AppSettings } from '@/lib/types';
 
 const navItems = [
   { href: '/servis-kayitlari', label: 'Servis Kayıtları' },
+  { href: '/musteriler', label: 'Müşteriler' },
+  { href: '/araclar', label: 'Araçlar' },
   { href: '/sifre', label: 'Şifre Değiştir' },
 
-  // sadece admin görsün
   { href: '/anasayfa', label: 'Ana Sayfa', adminOnly: true },
-  { href: '/firmalar', label: 'Firmalar', adminOnly: true },
   { href: '/cari-odeme', label: 'Cari / Ödeme', adminOnly: true },
   { href: '/kullanicilar', label: 'Kullanıcılar', adminOnly: true },
   { href: '/ayarlar', label: 'Ayarlar', adminOnly: true },
