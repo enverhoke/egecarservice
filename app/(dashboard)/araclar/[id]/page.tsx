@@ -139,6 +139,17 @@ export default function AracDetayPage() {
     setTested(false);
     setDelivered(false);
   }
+  function startEdit(service: ServiceRecord) {
+  setEditingId(service.id);
+  setDate(service.date || '');
+  setFaultType(service.faultType);
+  setDescription(service.description || '');
+  setStatus(service.status || '');
+  setKilometer(Number(service.kilometer || 0));
+  setTested(!!service.tested);
+  setDelivered(!!service.delivered);
+  setItems(service.items && service.items.length ? service.items : [{ ...initialItem }]);
+}
   function printService(service: ServiceRecord) {
   if (!vehicle || !customer) return;
 
@@ -567,6 +578,15 @@ w.document.write(`
           Yazdır
         </button>
       </td>
+      <td>
+  <button
+    type="button"
+    className="secondary-btn"
+    onClick={() => startEdit(s)}
+  >
+    Düzenle
+  </button>
+</td>
     </tr>
   ))}
 </tbody>
