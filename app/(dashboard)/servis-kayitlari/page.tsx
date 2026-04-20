@@ -14,6 +14,9 @@ export default function ServisKayitlariPage() {
   const { profile } = useAuth();
   const [firms, setFirms] = useState<Firm[]>([]);
   const [items, setItems] = useState<ServiceRecord[]>([]);
+
+  const firmMap = Object.fromEntries(firms.map(f => [f.id, f.name]));
+
   const [form, setForm] = useState(initial);
 
   useEffect(() => onSnapshot(query(collection(db, 'firms'), orderBy('name', 'asc')), s => setFirms(s.docs.map(d => ({ id: d.id, ...(d.data() as Omit<Firm,'id'>) })))), []);
