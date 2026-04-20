@@ -174,15 +174,23 @@ const modelOptions = form.brand ? brandModelMap[form.brand] || [] : [];
   </select>
 </label>
 
-            <label className="field">
-              <span>Model *</span>
-              <input
-                value={form.model}
-                onChange={(e) =>
-                  setForm({ ...form, model: e.target.value })
-                }
-              />
-            </label>
+         <label className="field">
+  <span>Model *</span>
+  <select
+    value={form.model}
+    onChange={(e) =>
+      setForm({ ...form, model: e.target.value })
+    }
+    disabled={!form.brand}
+  >
+    <option value="">Seçiniz</option>
+    {modelOptions.map((model) => (
+      <option key={model} value={model}>
+        {model}
+      </option>
+    ))}
+  </select>
+</label>
 
             <label className="field">
               <span>Yıl</span>
