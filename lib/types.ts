@@ -25,6 +25,10 @@ export type Firm = {
   createdByUid: string;
 };
 
+export type ServiceItem = {
+  title: string;
+  amount: number;
+};
 export type ServiceRecord = {
   id: string;
   customerId: string;
@@ -48,6 +52,8 @@ export type ServiceRecord = {
   description?: string;
   status?: string;
   kilometer?: number;
+  
+  items?: ServiceItem[];
 
   partCost?: number;
   laborCost?: number;
