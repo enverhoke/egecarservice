@@ -19,6 +19,17 @@ service cloud.firestore {
       allow create: if signedIn();
       allow update, delete: if isAdmin();
     }
+match /customers/{docId} {
+  allow read: if signedIn();
+  allow create: if signedIn();
+  allow update, delete: if isAdmin();
+}
+
+match /vehicles/{docId} {
+  allow read: if signedIn();
+  allow create: if signedIn();
+  allow update, delete: if isAdmin();
+}
 
     match /service_records/{docId} {
       allow read: if signedIn();
