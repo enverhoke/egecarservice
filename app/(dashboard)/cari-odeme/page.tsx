@@ -1,5 +1,11 @@
 'use client';
-
+export default function CariOdemePage() {
+  return (
+    <RequireAuth allow={['admin']}>
+      <CariOdemeInner />
+    </RequireAuth>
+  );
+}
 import { AppShell } from '@/components/AppShell';
 import { useAuth } from '@/components/AuthProvider';
 import { db } from '@/lib/firebase';
