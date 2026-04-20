@@ -38,7 +38,7 @@ export default function ServisKayitlariPage() {
     setForm(initial);
   }
 function printItem(item: ServiceRecord) {
-  const firmName = firms.find((f) => f.id === item.firmId)?.name || '-';
+  const firmName = firmMap[item.firmId] || '-';
 
   const w = window.open('', '_blank');
   if (!w) return;
@@ -124,11 +124,12 @@ function printItem(item: ServiceRecord) {
     <td>{item.createdByName}</td>
     <td>
       <button
-        className="secondary-btn"
-        onClick={() => printItem(item)}
-      >
-        Yazdır
-      </button>
+  type="button"
+  className="secondary-btn"
+  onClick={() => printItem(item)}
+>
+  Yazdır
+</button>
     </td>
   </tr>
 ))}
