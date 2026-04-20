@@ -170,120 +170,125 @@ export default function AracDetayPage() {
         <title>Ege Car Service - Servis Formu</title>
         <meta charset="utf-8" />
         <style>
-          body {
-            font-family: Arial, sans-serif;
-            background: #f3f4f6;
-            margin: 0;
-            padding: 24px;
-            color: #111827;
-          }
-          .sheet {
-            max-width: 900px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 18px;
-            padding: 32px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-          }
-          .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            border-bottom: 2px solid #e5e7eb;
-            padding-bottom: 18px;
-            margin-bottom: 24px;
-          }
-          .brand h1 {
-            margin: 0;
-            font-size: 28px;
-          }
-          .brand p {
-            margin: 6px 0 0;
-            color: #6b7280;
-            font-size: 14px;
-          }
-          .meta {
-            text-align: right;
-            font-size: 13px;
-            color: #6b7280;
-          }
-          .section-title {
-            font-size: 16px;
-            margin: 24px 0 12px;
-            font-weight: bold;
-          }
-          .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px 24px;
-            margin-bottom: 12px;
-          }
-          .info-box {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 12px 14px;
-          }
-          .label {
-            font-size: 12px;
-            color: #6b7280;
-            margin-bottom: 4px;
-          }
-          .value {
-            font-size: 15px;
-            font-weight: 600;
-          }
-          table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-          }
-          th {
-            text-align: left;
-            background: #f9fafb;
-            padding: 12px 10px;
-            border-bottom: 1px solid #d1d5db;
-            font-size: 13px;
-          }
-          .total-row td {
-            padding-top: 16px;
-            font-size: 16px;
-            font-weight: bold;
-          }
-          .note-box {
-            margin-top: 18px;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 14px;
-            background: #fafafa;
-          }
-          .footer {
-            margin-top: 28px;
-            display: flex;
-            justify-content: space-between;
-            gap: 24px;
-          }
-          .sign {
-            flex: 1;
-            border-top: 1px solid #d1d5db;
-            padding-top: 8px;
-            text-align: center;
-            color: #6b7280;
-            font-size: 13px;
-            margin-top: 50px;
-          }
-          @media print {
-            body {
-              background: white;
-              padding: 0;
-            }
-            .sheet {
-              box-shadow: none;
-              border-radius: 0;
-              max-width: 100%;
-            }
-          }
-        </style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f3f4f6;
+    margin: 0;
+    padding: 14px;
+    color: #111827;
+  }
+  .sheet {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 18px 22px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+  }
+  .brand h1 {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.1;
+  }
+  .brand p {
+    margin: 4px 0 0;
+    color: #6b7280;
+    font-size: 12px;
+  }
+  .meta {
+    text-align: right;
+    font-size: 12px;
+    color: #6b7280;
+  }
+  .section-title {
+    font-size: 14px;
+    margin: 14px 0 8px;
+    font-weight: bold;
+  }
+  .top-info {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 8px;
+  }
+  .top-info td {
+    padding: 6px 8px;
+    border: 1px solid #e5e7eb;
+    font-size: 12px;
+  }
+  .label {
+    color: #6b7280;
+    font-size: 11px;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .value {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 6px;
+  }
+  th {
+    text-align: left;
+    background: #f9fafb;
+    padding: 8px;
+    border-bottom: 1px solid #d1d5db;
+    font-size: 12px;
+  }
+  td {
+    font-size: 12px;
+  }
+  .total-row td {
+    padding-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .note-box {
+    margin-top: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px 12px;
+    background: #fafafa;
+    font-size: 12px;
+  }
+  .footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .sign {
+    flex: 1;
+    border-top: 1px solid #d1d5db;
+    padding-top: 6px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 12px;
+    margin-top: 30px;
+  }
+  @media print {
+    body {
+      background: white;
+      padding: 0;
+    }
+    .sheet {
+      box-shadow: none;
+      border-radius: 0;
+      max-width: 100%;
+      padding: 10px 14px;
+    }
+  }
+</style>
       </head>
       <body>
         <div class="sheet">
