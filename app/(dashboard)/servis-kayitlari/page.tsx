@@ -71,7 +71,7 @@ export default function ServisKayitlariPage() {
               {items.map(item => (
   <tr key={item.id}>
     <td>{item.date}</td>
-    <td>{firms.find(f => f.id === item.firmId)?.name || '-'}</td>
+    <td>{firmMap[item.firmId] || '-'}</td>
     <td>{item.plate || '-'}</td>
     <td>{item.processSummary}</td>
     <td>{money(item.totalCost || 0)}</td>
