@@ -164,216 +164,223 @@ export default function AracDetayPage() {
   const w = window.open('', '_blank');
   if (!w) return;
 
-  w.document.write(`
-    <html>
-      <head>
-        <title>Ege Car Service - Servis Formu</title>
-        <meta charset="utf-8" />
-        <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f3f4f6;
-    margin: 0;
-    padding: 14px;
-    color: #111827;
-  }
-  .sheet {
-    max-width: 900px;
-    margin: 0 auto;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 18px 22px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-  }
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    border-bottom: 1px solid #e5e7eb;
-    padding-bottom: 10px;
-    margin-bottom: 14px;
-  }
-  .brand h1 {
-    margin: 0;
-    font-size: 22px;
-    line-height: 1.1;
-  }
-  .brand p {
-    margin: 4px 0 0;
-    color: #6b7280;
-    font-size: 12px;
-  }
-  .meta {
-    text-align: right;
-    font-size: 12px;
-    color: #6b7280;
-  }
-  .section-title {
-    font-size: 14px;
-    margin: 14px 0 8px;
-    font-weight: bold;
-  }
-  .top-info {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 8px;
-  }
-  .top-info td {
-    padding: 6px 8px;
-    border: 1px solid #e5e7eb;
-    font-size: 12px;
-  }
-  .label {
-    color: #6b7280;
-    font-size: 11px;
-    display: block;
-    margin-bottom: 2px;
-  }
-  .value {
-    font-size: 13px;
-    font-weight: 600;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 6px;
-  }
-  th {
-    text-align: left;
-    background: #f9fafb;
-    padding: 8px;
-    border-bottom: 1px solid #d1d5db;
-    font-size: 12px;
-  }
-  td {
-    font-size: 12px;
-  }
-  .total-row td {
-    padding-top: 10px;
-    font-size: 14px;
-    font-weight: bold;
-  }
-  .note-box {
-    margin-top: 12px;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 10px 12px;
-    background: #fafafa;
-    font-size: 12px;
-  }
-  .footer {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-  }
-  .sign {
-    flex: 1;
-    border-top: 1px solid #d1d5db;
-    padding-top: 6px;
-    text-align: center;
-    color: #6b7280;
-    font-size: 12px;
-    margin-top: 30px;
-  }
-  @media print {
-    body {
-      background: white;
-      padding: 0;
-    }
-    .sheet {
-      box-shadow: none;
-      border-radius: 0;
-      max-width: 100%;
-      padding: 10px 14px;
-    }
-  }
-</style>
-      </head>
-      <body>
-        <div class="sheet">
-          <div class="header">
-            <div class="brand">
-              <h1>Ege Car Service</h1>
-              <p>Servis ve araç bakım formu</p>
-            </div>
-            <div class="meta">
-              <div><strong>Tarih:</strong> ${service.date}</div>
-              <div><strong>Kayıt:</strong> ${service.createdByName || '-'}</div>
-            </div>
+w.document.write(`
+  <html>
+    <head>
+      <title>Ege Car Service - Servis Formu</title>
+      <meta charset="utf-8" />
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: #f3f4f6;
+          margin: 0;
+          padding: 14px;
+          color: #111827;
+        }
+        .sheet {
+          max-width: 900px;
+          margin: 0 auto;
+          background: #ffffff;
+          border-radius: 12px;
+          padding: 18px 22px;
+          box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        }
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          border-bottom: 1px solid #e5e7eb;
+          padding-bottom: 10px;
+          margin-bottom: 14px;
+        }
+        .brand h1 {
+          margin: 0;
+          font-size: 22px;
+          line-height: 1.1;
+        }
+        .brand p {
+          margin: 4px 0 0;
+          color: #6b7280;
+          font-size: 12px;
+        }
+        .meta {
+          text-align: right;
+          font-size: 12px;
+          color: #6b7280;
+        }
+        .section-title {
+          font-size: 14px;
+          margin: 14px 0 8px;
+          font-weight: bold;
+        }
+        .top-info {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 8px;
+        }
+        .top-info td {
+          padding: 6px 8px;
+          border: 1px solid #e5e7eb;
+          font-size: 12px;
+          vertical-align: top;
+        }
+        .label {
+          color: #6b7280;
+          font-size: 11px;
+          display: block;
+          margin-bottom: 2px;
+        }
+        .value {
+          font-size: 13px;
+          font-weight: 600;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 6px;
+        }
+        th {
+          text-align: left;
+          background: #f9fafb;
+          padding: 8px;
+          border-bottom: 1px solid #d1d5db;
+          font-size: 12px;
+        }
+        td {
+          font-size: 12px;
+        }
+        .total-row td {
+          padding-top: 10px;
+          font-size: 14px;
+          font-weight: bold;
+        }
+        .note-box {
+          margin-top: 12px;
+          border: 1px solid #e5e7eb;
+          border-radius: 8px;
+          padding: 10px 12px;
+          background: #fafafa;
+          font-size: 12px;
+        }
+        .footer {
+          margin-top: 20px;
+          display: flex;
+          justify-content: space-between;
+          gap: 20px;
+        }
+        .sign {
+          flex: 1;
+          border-top: 1px solid #d1d5db;
+          padding-top: 6px;
+          text-align: center;
+          color: #6b7280;
+          font-size: 12px;
+          margin-top: 30px;
+        }
+        @media print {
+          body {
+            background: white;
+            padding: 0;
+          }
+          .sheet {
+            box-shadow: none;
+            border-radius: 0;
+            max-width: 100%;
+            padding: 10px 14px;
+          }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="sheet">
+        <div class="header">
+          <div class="brand">
+            <h1>Ege Car Service</h1>
+            <p>Servis ve araç bakım formu</p>
           </div>
-
-          <div class="section-title">Müşteri Bilgisi</div>
-          <div class="info-grid">
-            <div class="info-box">
-              <div class="label">Müşteri</div>
-              <div class="value">${customer.firstName} ${customer.lastName}</div>
-            </div>
-            <div class="info-box">
-              <div class="label">Telefon</div>
-              <div class="value">${customer.phone || '-'}</div>
-            </div>
-          </div>
-
-          <div class="section-title">Araç Bilgisi</div>
-          <div class="info-grid">
-            <div class="info-box">
-              <div class="label">Plaka</div>
-              <div class="value">${vehicle.plate}</div>
-            </div>
-            <div class="info-box">
-              <div class="label">Marka / Model</div>
-              <div class="value">${vehicle.brand} ${vehicle.model}</div>
-            </div>
-            <div class="info-box">
-              <div class="label">Yıl</div>
-              <div class="value">${vehicle.year || '-'}</div>
-            </div>
-            <div class="info-box">
-              <div class="label">Yakıt</div>
-              <div class="value">${vehicle.fuelType || '-'}</div>
-            </div>
-            <div class="info-box">
-              <div class="label">Kilometre</div>
-              <div class="value">${service.kilometer || 0}</div>
-            </div>
-            <div class="info-box">
-              <div class="label">Arıza Türü</div>
-              <div class="value">${service.faultType}</div>
-            </div>
-          </div>
-
-          <div class="section-title">İşlem Kalemleri</div>
-          <table>
-            <thead>
-              <tr>
-                <th>Kalem</th>
-                <th style="text-align:right;">Tutar</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${itemsHtml}
-              <tr class="total-row">
-                <td>Toplam</td>
-                <td style="text-align:right;">${money(service.totalCost || 0)}</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="note-box">
-            <div><strong>Açıklama:</strong> ${service.description || '-'}</div>
-            <div style="margin-top:8px;"><strong>Durum:</strong> ${service.status || '-'}</div>
-            <div style="margin-top:8px;"><strong>Test:</strong> ${service.tested ? 'Evet' : 'Hayır'} &nbsp; | &nbsp; <strong>Teslim:</strong> ${service.delivered ? 'Evet' : 'Hayır'}</div>
-          </div>
-
-          <div class="footer">
-            <div class="sign">Müşteri İmza</div>
-            <div class="sign">Servis Yetkilisi</div>
+          <div class="meta">
+            <div><strong>Tarih:</strong> ${service.date}</div>
+            <div><strong>Kayıt:</strong> ${service.createdByName || '-'}</div>
           </div>
         </div>
-      </body>
-    </html>
-  `);
+
+        <div class="section-title">Araç ve Müşteri Bilgisi</div>
+        <table class="top-info">
+          <tr>
+            <td>
+              <span class="label">Müşteri</span>
+              <span class="value">${customer.firstName} ${customer.lastName}</span>
+            </td>
+            <td>
+              <span class="label">Telefon</span>
+              <span class="value">${customer.phone || '-'}</span>
+            </td>
+            <td>
+              <span class="label">Tarih</span>
+              <span class="value">${service.date}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="label">Plaka</span>
+              <span class="value">${vehicle.plate}</span>
+            </td>
+            <td>
+              <span class="label">Marka / Model</span>
+              <span class="value">${vehicle.brand} ${vehicle.model}</span>
+            </td>
+            <td>
+              <span class="label">Yıl / Yakıt</span>
+              <span class="value">${vehicle.year || '-'} / ${vehicle.fuelType || '-'}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="label">Kilometre</span>
+              <span class="value">${service.kilometer || 0}</span>
+            </td>
+            <td>
+              <span class="label">Arıza Türü</span>
+              <span class="value">${service.faultType}</span>
+            </td>
+            <td>
+              <span class="label">Kayıt</span>
+              <span class="value">${service.createdByName || '-'}</span>
+            </td>
+          </tr>
+        </table>
+
+        <div class="section-title">İşlem Kalemleri</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Kalem</th>
+              <th style="text-align:right;">Tutar</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${itemsHtml}
+            <tr class="total-row">
+              <td>Toplam</td>
+              <td style="text-align:right;">${money(service.totalCost || 0)}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note-box">
+          <div><strong>Açıklama:</strong> ${service.description || '-'}</div>
+          <div style="margin-top:8px;"><strong>Durum:</strong> ${service.status || '-'}</div>
+          <div style="margin-top:8px;"><strong>Test:</strong> ${service.tested ? 'Evet' : 'Hayır'} &nbsp; | &nbsp; <strong>Teslim:</strong> ${service.delivered ? 'Evet' : 'Hayır'}</div>
+        </div>
+
+        <div class="footer">
+          <div class="sign">Müşteri İmza</div>
+          <div class="sign">Servis Yetkilisi</div>
+        </div>
+      </div>
+    </body>
+  </html>
+`);
 
   w.document.close();
   w.focus();
