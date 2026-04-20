@@ -13,9 +13,28 @@ import {
   query,
 } from 'firebase/firestore';
 import { FormEvent, useEffect, useMemo, useState } from 'react';
-
+const brandModelMap: Record<string, string[]> = {
+  FIAT: ['Egea', 'Linea', 'Doblo', 'Albea', 'Tempra', 'Marea', 'Punto', 'Palio'],
+  RENAULT: ['Clio', 'Megane', 'Symbol', 'Fluence', 'Taliant', 'Kangoo'],
+  FORD: ['Focus', 'Fiesta', 'Transit', 'Courier', 'Mondeo'],
+  VOLKSWAGEN: ['Golf', 'Passat', 'Polo', 'Caddy', 'Transporter'],
+  OPEL: ['Astra', 'Corsa', 'Insignia', 'Combo', 'Vectra'],
+  TOYOTA: ['Corolla', 'Yaris', 'Hilux', 'Auris', 'Avensis'],
+  HONDA: ['Civic', 'Accord', 'City', 'CR-V'],
+  HYUNDAI: ['i20', 'i30', 'Accent', 'Elantra', 'Tucson'],
+  PEUGEOT: ['206', '207', '208', '301', '308', 'Partner'],
+  CITROEN: ['C-Elysee', 'C3', 'C4', 'Berlingo'],
+  BMW: ['1 Serisi', '3 Serisi', '5 Serisi', 'X1', 'X3', 'X5'],
+  MERCEDES: ['A Serisi', 'C Serisi', 'E Serisi', 'CLA', 'Vito', 'Sprinter'],
+  AUDI: ['A3', 'A4', 'A6', 'Q3', 'Q5'],
+  SKODA: ['Fabia', 'Octavia', 'Superb', 'Rapid'],
+  DACIA: ['Sandero', 'Logan', 'Duster'],
+  NISSAN: ['Micra', 'Qashqai', 'Juke', 'Navara'],
+  KIA: ['Rio', 'Ceed', 'Sportage', 'Cerato'],
+  VOLVO: ['S40', 'S60', 'XC60', 'XC90'],
+};
 const fuelOptions = ['Benzin', 'Dizel', 'LPG', 'Hybrid', 'Elektrik'];
-
+const brandOptions = Object.keys(brandModelMap);
 const initial = {
   customerId: '',
   plate: '',
@@ -68,7 +87,7 @@ export default function AraclarPage() {
   const customerMap = Object.fromEntries(
     customers.map((c) => [c.id, `${c.firstName} ${c.lastName}`])
   );
-
+const modelOptions = form.brand ? brandModelMap[form.brand] || [] : [];
   // filtre
   const filtered = useMemo(() => {
     return items.filter((x) =>
@@ -138,15 +157,22 @@ export default function AraclarPage() {
               />
             </label>
 
-            <label className="field">
-              <span>Marka *</span>
-              <input
-                value={form.brand}
-                onChange={(e) =>
-                  setForm({ ...form, brand: e.target.value })
-                }
-              />
-            </label>
+           <label className="field">
+  <span>Marka *</span>
+  <select
+    value={form.brand}
+    onChange={(e) =>
+      setForm({ ...form, brand: e.target.value, model: '' })
+    }
+  >
+    <option value="">Seçiniz</option>
+    {brandOptions.map((brand) => (
+      <option key={brand} value={brand}>
+        {brand}
+      </option>
+    ))}
+  </select>
+</label>
 
             <label className="field">
               <span>Model *</span>
