@@ -4,7 +4,7 @@ import { AppShell } from '@/components/AppShell';
 import { RequireAuth } from '@/components/RequireAuth';
 import { db } from '@/lib/firebase';
 import { money } from '@/lib/helpers';
-import { Firm, PaymentRecord, ServiceRecord } from '@/lib/types';
+import { Customer, ServiceRecord, Vehicle } from '@/lib/types';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -17,18 +17,32 @@ export default function AnasayfaPage() {
 }
 
 function AnasayfaInner() {
-  const [firms, setFirms] = useState<Firm[]>([]);
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [services, setServices] = useState<ServiceRecord[]>([]);
-  const [payments, setPayments] = useState<PaymentRecord[]>([]);
 
   useEffect(() => {
     return onSnapshot(
-      query(collection(db, 'firms'), orderBy('createdAt', 'desc')),
+      query(collection(db, 'customers'), orderBy('createdAt', 'desc')),
       (snapshot) =>
-        setFirms(
+        setCustomers(
           snapshot.docs.map((d) => ({
             id: d.id,
-            ...(d.data() as Omit<Firm, 'id'>),
+            ...(d.data() as Omit<Customer, 'id'>),
+          }))
+        ),
+      console.error
+    );
+  }, []);
+
+  useEffect(() => {
+    return onSnapshot(
+      query(collection(db, 'vehicles'), orderBy('createdAt', 'desc')),
+      (snapshot) =>
+        setVehicles(
+          snapshot.docs.map((d) => ({
+            id: d.id,
+            ...(d.data() as Omit<Vehicle, 'id'>),
           }))
         ),
       console.error
@@ -49,166 +63,85 @@ function AnasayfaInner() {
     );
   }, []);
 
-  useEffect(() => {
-    return onSnapshot(
-      query(collection(db, 'payments'), orderBy('createdAt', 'desc')),
-      (snapshot) =>
-        setPayments(
-          snapshot.docs.map((d) => ({
-            id: d.id,
-            ...(d.data() as Omit<PaymentRecord, 'id'>),
-          }))
-        ),
-      console.error
-    );
-  }, []);
+  const customerMap = Object.fromEntries(
+    customers.map((c) => [c.id, `${c.firstName} ${c.lastName}`])
+  );
+
+  const vehicleMap = Object.fromEntries(
+    vehicles.map((v) => [v.id, v])
+  );
 
   const stats = useMemo(() => {
     const totalIncome = services.reduce((sum, x) => sum + (x.totalCost || 0), 0);
-    const totalTahsilat = payments
-      .filter((x) => x.type === 'alinan')
-      .reduce((sum, x) => sum + x.amount, 0);
-    const totalVerilen = payments
-      .filter((x) => x.type === 'verilen')
-      .reduce((sum, x) => sum + x.amount, 0);
-    const totalReceivable = totalIncome - totalTahsilat;
     const waiting = services.filter((x) => !x.delivered).length;
 
     return {
       totalIncome,
-      totalTahsilat,
-      totalVerilen,
-      totalReceivable,
       waiting,
+      customerCount: customers.length,
+      vehicleCount: vehicles.length,
+      serviceCount: services.length,
     };
-  }, [services, payments]);
-
-  const firmSummary = useMemo(() => {
-    return firms.map((firm) => {
-      const firmServices = services.filter((s) => s.firmId === firm.id);
-      const firmPayments = payments.filter(
-        (p) => p.firmId === firm.id && p.type === 'alinan'
-      );
-
-      const serviceTotal = firmServices.reduce(
-        (sum, x) => sum + (x.totalCost || 0),
-        0
-      );
-      const tahsilat = firmPayments.reduce((sum, x) => sum + x.amount, 0);
-
-      return {
-        firm,
-        serviceTotal,
-        tahsilat,
-        kalan: serviceTotal - tahsilat,
-        count: firmServices.length,
-      };
-    });
-  }, [firms, services, payments]);
+  }, [services, customers, vehicles]);
 
   return (
     <AppShell
       title="Ana Sayfa"
-      subtitle="Günlük akışı, son kayıtları ve cari özetleri buradan takip edebilirsin."
+      subtitle="Müşteri, araç ve servis özetlerini buradan takip edebilirsin."
     >
       <section className="stats-grid">
         <div className="stat-card">
-          <span>Toplam Hizmet</span>
+          <span>Toplam Hizmet Tutarı</span>
           <strong>{money(stats.totalIncome)}</strong>
-        </div>
-        <div className="stat-card">
-          <span>Toplam Tahsilat</span>
-          <strong>{money(stats.totalTahsilat)}</strong>
-        </div>
-        <div className="stat-card">
-          <span>Toplam Verilen</span>
-          <strong>{money(stats.totalVerilen)}</strong>
-        </div>
-        <div className="stat-card">
-          <span>Toplam Alacak</span>
-          <strong>{money(stats.totalReceivable)}</strong>
         </div>
         <div className="stat-card">
           <span>Bekleyen Araç</span>
           <strong>{stats.waiting}</strong>
         </div>
         <div className="stat-card">
-          <span>Firma Sayısı</span>
-          <strong>{firms.length}</strong>
+          <span>Müşteri Sayısı</span>
+          <strong>{stats.customerCount}</strong>
         </div>
-      </section>
-
-      <section className="panel-grid">
-        <div className="panel-card">
-          <div className="panel-head">
-            <h3>Son Servis Kayıtları</h3>
-          </div>
-          <div className="list-wrap">
-            {services.slice(0, 6).map((item) => (
-              <div className="list-item" key={item.id}>
-                <div>
-                  <strong>{item.processSummary}</strong>
-                  <p>
-                    {item.plate || '-'} · {item.createdByName}
-                  </p>
-                </div>
-                <span>{money(item.totalCost || 0)}</span>
-              </div>
-            ))}
-            {!services.length && (
-              <p className="empty">Henüz servis kaydı yok.</p>
-            )}
-          </div>
+        <div className="stat-card">
+          <span>Araç Sayısı</span>
+          <strong>{stats.vehicleCount}</strong>
         </div>
-
-        <div className="panel-card">
-          <div className="panel-head">
-            <h3>Son Cari Hareketleri</h3>
-          </div>
-          <div className="list-wrap">
-            {payments.slice(0, 6).map((item) => (
-              <div className="list-item" key={item.id}>
-                <div>
-                  <strong>{item.type}</strong>
-                  <p>
-                    {item.note || '-'} · {item.createdByName}
-                  </p>
-                </div>
-                <span>{money(item.amount)}</span>
-              </div>
-            ))}
-            {!payments.length && (
-              <p className="empty">Henüz ödeme kaydı yok.</p>
-            )}
-          </div>
+        <div className="stat-card">
+          <span>Servis Kaydı</span>
+          <strong>{stats.serviceCount}</strong>
         </div>
       </section>
 
       <section className="panel-card">
         <div className="panel-head">
-          <h3>Firma Bazlı Özet</h3>
+          <h3>Son Servis Kayıtları</h3>
         </div>
         <div className="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>Firma</th>
-                <th>Hizmet</th>
-                <th>Tahsilat</th>
-                <th>Kalan</th>
-                <th>Kayıt</th>
+                <th>Tarih</th>
+                <th>Müşteri</th>
+                <th>Plaka</th>
+                <th>Araç</th>
+                <th>Arıza</th>
+                <th>Tutar</th>
               </tr>
             </thead>
             <tbody>
-              {firmSummary.map((row) => (
-                <tr key={row.firm.id}>
-                  <td>{row.firm.name}</td>
-                  <td>{money(row.serviceTotal)}</td>
-                  <td>{money(row.tahsilat)}</td>
-                  <td>{money(row.kalan)}</td>
-                  <td>{row.count}</td>
-                </tr>
-              ))}
+              {services.slice(0, 10).map((item) => {
+                const vehicle = vehicleMap[item.vehicleId];
+                return (
+                  <tr key={item.id}>
+                    <td>{item.date}</td>
+                    <td>{customerMap[item.customerId] || '-'}</td>
+                    <td>{vehicle?.plate || '-'}</td>
+                    <td>{vehicle ? `${vehicle.brand} ${vehicle.model}` : '-'}</td>
+                    <td>{item.faultType}</td>
+                    <td>{money(item.totalCost || 0)}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
