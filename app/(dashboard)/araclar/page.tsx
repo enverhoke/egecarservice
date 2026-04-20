@@ -35,6 +35,10 @@ const brandModelMap: Record<string, string[]> = {
 };
 const fuelOptions = ['Benzin', 'Dizel', 'LPG', 'Hybrid', 'Elektrik'];
 const brandOptions = Object.keys(brandModelMap);
+const yearOptions = Array.from(
+  { length: 40 },
+  (_, i) => String(new Date().getFullYear() - i)
+);
 const initial = {
   customerId: '',
   plate: '',
@@ -193,14 +197,21 @@ const modelOptions = form.brand ? brandModelMap[form.brand] || [] : [];
 </label>
 
             <label className="field">
-              <span>Yıl</span>
-              <input
-                value={form.year}
-                onChange={(e) =>
-                  setForm({ ...form, year: e.target.value })
-                }
-              />
-            </label>
+  <span>Yıl</span>
+  <select
+    value={form.year}
+    onChange={(e) =>
+      setForm({ ...form, year: e.target.value })
+    }
+  >
+    <option value="">Seçiniz</option>
+    {yearOptions.map((year) => (
+      <option key={year} value={year}>
+        {year}
+      </option>
+    ))}
+  </select>
+</label>
 
             <label className="field">
               <span>Yakıt Tipi</span>
