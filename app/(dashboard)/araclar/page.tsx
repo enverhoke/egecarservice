@@ -300,6 +300,11 @@ const modelOptions = form.brand ? brandModelMap[form.brand] || [] : [];
                     <td>{item.year || '-'}</td>
                     <td>{item.fuelType || '-'}</td>
                     <td>{customerMap[item.customerId] || '-'}</td>
+                    <td>
+  <Link className="secondary-btn" href={`/araclar/${item.id}`}>
+    Detay
+  </Link>
+</td>
                   </tr>
                 ))}
               </tbody>
