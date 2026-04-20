@@ -65,14 +65,24 @@ export default function ServisKayitlariPage() {
           <div className="panel-head"><h3>Son Servisler</h3></div>
           <div className="table-wrap">
             <table><thead><tr><th>Tarih</th><th>Firma</th><th>Plaka</th><th>İş</th><th>Tutar</th><th>Giren</th><th>İşlem</th></tr></thead><tbody>
-              {items.map(item => <tr key={item.id}><td>{item.date}</td><td>{firms.find(f => f.id === item.firmId)?.name || '-'}</td><td>{item.plate || '-'}</td><td>{item.processSummary}</td><td>{money(item.totalCost || 0)}</td><td>{item.createdByName}</td><td>
-  <button
-    className="secondary-btn"
-    onClick={() => printItem(item)}
-  >
-    Yazdır
-  </button>
-</td></tr>)}
+              {items.map(item => (
+  <tr key={item.id}>
+    <td>{item.date}</td>
+    <td>{firms.find(f => f.id === item.firmId)?.name || '-'}</td>
+    <td>{item.plate || '-'}</td>
+    <td>{item.processSummary}</td>
+    <td>{money(item.totalCost || 0)}</td>
+    <td>{item.createdByName}</td>
+    <td>
+      <button
+        className="secondary-btn"
+        onClick={() => printItem(item)}
+      >
+        Yazdır
+      </button>
+    </td>
+  </tr>
+))}
             </tbody></table>
           </div>
         </div>
