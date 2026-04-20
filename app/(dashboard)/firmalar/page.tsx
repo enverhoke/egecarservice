@@ -1,5 +1,13 @@
 'use client';
+import { RequireAuth } from '@/components/RequireAuth';
 
+export default function FirmalarPage() {
+  return (
+    <RequireAuth allow={['admin']}>
+      <FirmalarInner />
+    </RequireAuth>
+  );
+}
 import { AppShell } from '@/components/AppShell';
 import { useAuth } from '@/components/AuthProvider';
 import { db } from '@/lib/firebase';
