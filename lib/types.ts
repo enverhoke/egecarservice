@@ -33,7 +33,8 @@ export type ServiceRecord = {
   id: string;
   customerId: string;
   vehicleId: string;
-
+updatedAt?: string;
+updatedBy?: string;
   date: string;
   faultType:
     | 'Motor'
@@ -63,8 +64,11 @@ export type ServiceRecord = {
   delivered?: boolean;
 
   createdAt: string;
-  createdByUid: string;
-  createdByName: string;
+createdByUid: string;
+createdByName: string;
+
+updatedAt?: string;
+updatedBy?: string;
 };
 
 export type PaymentRecord = {
